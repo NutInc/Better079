@@ -1,12 +1,15 @@
-// <copyright file="Config.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// -----------------------------------------------------------------------
+// <copyright file="Config.cs" company="Build">
+// Copyright (c) Build. All rights reserved.
+// Licensed under the CC BY-SA 3.0 license.
 // </copyright>
+// -----------------------------------------------------------------------
 
-namespace Better079.Configs
+namespace Better079
 {
     using System.Collections.Generic;
     using System.ComponentModel;
-    using Better079.Configs.SubConfigs;
+    using Better079.Configs;
     using Exiled.API.Interfaces;
 
     /// <inheritdoc cref="IConfig"/>

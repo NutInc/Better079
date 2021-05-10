@@ -1,8 +1,11 @@
-// <copyright file="A3Configs.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// -----------------------------------------------------------------------
+// <copyright file="A3Configs.cs" company="Build">
+// Copyright (c) Build. All rights reserved.
+// Licensed under the CC BY-SA 3.0 license.
 // </copyright>
+// -----------------------------------------------------------------------
 
-namespace Better079.Configs.SubConfigs
+namespace Better079.Configs
 {
     using System.ComponentModel;
 

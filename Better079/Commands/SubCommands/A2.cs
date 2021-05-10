@@ -1,6 +1,9 @@
-// <copyright file="A2.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// -----------------------------------------------------------------------
+// <copyright file="A2.cs" company="Build">
+// Copyright (c) Build. All rights reserved.
+// Licensed under the CC BY-SA 3.0 license.
 // </copyright>
+// -----------------------------------------------------------------------
 
 namespace Better079.Commands.SubCommands
 {

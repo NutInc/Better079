@@ -1,25 +1,28 @@
-// <copyright file="A3Translations.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// -----------------------------------------------------------------------
+// <copyright file="A4Translations.cs" company="Build">
+// Copyright (c) Build. All rights reserved.
+// Licensed under the CC BY-SA 3.0 license.
 // </copyright>
+// -----------------------------------------------------------------------
 
-namespace Better079.Configs.SubConfigs
+namespace Better079.Configs
 {
     using System.ComponentModel;
 
     /// <summary>
-    /// All of the translation configs for ability three.
+    /// All of the translation configs for ability four.
     /// </summary>
-    public class A3Translations
+    public class A4Translations
     {
         /// <summary>
         /// Gets or sets the help information for the ability.
         /// </summary>
-        public string Help { get; set; } = "Shuts off all lights in the facility";
+        public string Help { get; set; } = "Flashes nearby players";
 
         /// <summary>
         /// Gets or sets the message to send when the ability is executed.
         /// </summary>
-        public string Run { get; set; } = "Overcharging...";
+        public string Run { get; set; } = "Flashing...";
 
         /// <summary>
         /// Gets or sets the message to be sent when the ability is on cooldown.

@@ -1,6 +1,9 @@
-﻿// <copyright file="Plugin.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// -----------------------------------------------------------------------
+// <copyright file="Plugin.cs" company="Build">
+// Copyright (c) Build. All rights reserved.
+// Licensed under the CC BY-SA 3.0 license.
 // </copyright>
+// -----------------------------------------------------------------------
 
 namespace Better079
 {
@@ -10,7 +13,7 @@ namespace Better079
     /// <summary>
     /// The main plugin class.
     /// </summary>
-    public class Plugin : Plugin<Configs.Config>
+    public class Plugin : Plugin<Config>
     {
         private static readonly Plugin InstanceValue = new Plugin();
 
@@ -19,13 +22,7 @@ namespace Better079
         }
 
         /// <inheritdoc/>
-        public override string Name { get; } = "Better079";
-
-        /// <inheritdoc/>
-        public override string Author { get; } = "VirtualBrightPlayz, upgraded by Build";
-
-        /// <inheritdoc/>
-        public override Version Version { get; } = new Version(1, 2, 3);
+        public override Version RequiredExiledVersion { get; } = new Version(2, 10, 0);
 
         /// <summary>
         /// Gets a static instance of the <see cref="Plugin"/> class.

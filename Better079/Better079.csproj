@@ -1,14 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net472</TargetFramework>
-        <RootNamespace>Better079</RootNamespace>
-        <AssemblyName>Better079</AssemblyName>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+      <AssemblyName>Better079</AssemblyName>
+      <TargetFramework>net472</TargetFramework>
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+      <Authors>VirtualBrightPlayz &amp; Build</Authors>
+      <Version>2.0.0</Version>
+      <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+      <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+      <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="EXILED" Version="2.9.0-beta" />
+      <PackageReference Include="EXILED" Version="2.10.0-beta" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
       <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
       <PackageReference Include="YamlDotNet" Version="9.1.0" />
