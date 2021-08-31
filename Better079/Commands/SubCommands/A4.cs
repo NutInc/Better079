@@ -8,13 +8,10 @@
 namespace Better079.Commands.SubCommands
 {
     using System;
-    using System.Linq;
     using CommandSystem;
     using Exiled.API.Features;
-    using Grenades;
-    using Mirror;
+    using Exiled.API.Features.Items;
     using RemoteAdmin;
-    using UnityEngine;
 
     /// <summary>
     /// The fourth ability. Spawns flash grenades on the active camera.
@@ -39,6 +36,12 @@ namespace Better079.Commands.SubCommands
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             Player player = Player.Get(((PlayerCommandSender)sender).ReferenceHub);
+            if (player.Role != RoleType.Scp079)
+            {
+                response = "You are not an Scp079!";
+                return false;
+            }
+
             var a4Configs = Plugin.Instance.Config.A4Configs;
 
             if (!Methods.SufficientLevel(player, a4Configs.RequiredLevel))
@@ -67,17 +70,10 @@ namespace Better079.Commands.SubCommands
 
         private static void SpawnFlash(Player player)
         {
-            Vector3 position = player.Camera.gameObject
-                ? player.Camera.transform.position
-                : player.ReferenceHub.scp079PlayerScript.transform.position;
-
-            GrenadeManager gm = player.GrenadeManager;
-            GrenadeSettings settings = gm.availableGrenades.First(g => g.inventoryID == ItemType.GrenadeFlash);
-            FlashGrenade flash = UnityEngine.Object.Instantiate(settings.grenadeInstance).GetComponent<FlashGrenade>();
-            flash.fuseDuration = 0.5f;
-            flash.InitData(gm, Vector3.zero, Vector3.zero);
-            flash.transform.position = position;
-            NetworkServer.Spawn(flash.gameObject);
+            new FlashGrenade(ItemType.GrenadeFlash, player)
+            {
+                FuseTime = 0.5f,
+            }.SpawnActive(player.Position, player);
         }
     }
 }

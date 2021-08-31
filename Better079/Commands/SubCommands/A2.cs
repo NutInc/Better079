@@ -10,6 +10,7 @@ namespace Better079.Commands.SubCommands
     using System;
     using System.Collections.Generic;
     using CommandSystem;
+    using Exiled.API.Enums;
     using Exiled.API.Features;
     using MEC;
     using RemoteAdmin;
@@ -37,6 +38,12 @@ namespace Better079.Commands.SubCommands
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             Player player = Player.Get(((PlayerCommandSender)sender).ReferenceHub);
+            if (player.Role != RoleType.Scp079)
+            {
+                response = "You are not an Scp079!";
+                return false;
+            }
+
             var a2Configs = Plugin.Instance.Config.A2Configs;
 
             if (!Methods.SufficientLevel(player, a2Configs.RequiredLevel))
@@ -75,8 +82,8 @@ namespace Better079.Commands.SubCommands
         {
             foreach (var item in room.Doors)
             {
-                item.NetworkTargetState = true;
-                item.NetworkActiveLocks = 1;
+                item.Open = true;
+                item.Base.NetworkActiveLocks = 1;
             }
 
             for (int i = Plugin.Instance.Config.A2Configs.Timer; i > 0f; i--)
@@ -94,8 +101,8 @@ namespace Better079.Commands.SubCommands
 
             foreach (var item in room.Doors)
             {
-                item.NetworkTargetState = false;
-                item.NetworkActiveLocks = 1;
+                item.Open = false;
+                item.Base.NetworkActiveLocks = 1;
             }
 
             foreach (var player in room.Players)
@@ -125,7 +132,7 @@ namespace Better079.Commands.SubCommands
 
             foreach (var item in room.Doors)
             {
-                item.NetworkActiveLocks = 0;
+                item.Base.NetworkActiveLocks = 0;
             }
         }
     }

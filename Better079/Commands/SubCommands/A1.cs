@@ -37,6 +37,12 @@ namespace Better079.Commands.SubCommands
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             Player player = Player.Get(((PlayerCommandSender)sender).ReferenceHub);
+            if (player.Role != RoleType.Scp079)
+            {
+                response = "You are not an Scp079!";
+                return false;
+            }
+
             var a1Configs = Plugin.Instance.Config.A1Configs;
 
             if (!Methods.SufficientLevel(player, a1Configs.RequiredLevel))

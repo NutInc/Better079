@@ -22,7 +22,7 @@ namespace Better079
         }
 
         /// <inheritdoc/>
-        public override Version RequiredExiledVersion { get; } = new Version(2, 10, 0);
+        public override Version RequiredExiledVersion { get; } = new Version(3, 0, 0);
 
         /// <summary>
         /// Gets a static instance of the <see cref="Plugin"/> class.
