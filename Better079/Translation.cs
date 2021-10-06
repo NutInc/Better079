@@ -17,7 +17,7 @@ namespace Better079
         /// Gets or sets the spawn message that SCP-079 receives when they spawn.
         /// </summary>
         [Description("The spawn message that SCP-079 receives when they spawn.")]
-        public string SpawnMsg { get; set; } = "<color=#00ff00>[Better079] Type \".079\" in the console to view abilities.</color>";
+        public string SpawnMsg { get; set; } = "\n<color=#00ff00>[Better079] Type \".079\" in the console to view abilities.</color>";
 
         /// <summary>
         /// Gets or sets the translation for when SCP-079 is on cooldown for the ability.

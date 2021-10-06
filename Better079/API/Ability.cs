@@ -106,19 +106,19 @@ namespace Better079.API
                 return false;
             }
 
-            if (sender.Level + 1 < RequiredLevel)
+            if (sender.Level + 1 < RequiredLevel && !sender.IsBypassModeEnabled)
             {
                 response = Plugin.Instance.Translation.TierRequired.Replace("{tier}", RequiredLevel.ToString());
                 return false;
             }
 
-            if (IsOnCooldown(sender, out TimeSpan remainingTime))
+            if (IsOnCooldown(sender, out TimeSpan remainingTime) && !sender.IsBypassModeEnabled)
             {
                 response = Plugin.Instance.Translation.OnCooldown.Replace("{duration}", Math.Abs((int)remainingTime.TotalSeconds).ToString());
                 return false;
             }
 
-            if (sender.Energy < RequiredEnergy)
+            if (sender.Energy < RequiredEnergy && !sender.IsBypassModeEnabled)
             {
                 response = Plugin.Instance.Translation.EnergyRequired.Replace("{energy}", RequiredEnergy.ToString());
                 return false;
