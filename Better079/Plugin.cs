@@ -13,38 +13,54 @@ namespace Better079
     /// <summary>
     /// The main plugin class.
     /// </summary>
-    public class Plugin : Plugin<Config>
+    public class Plugin : Plugin<Config, Translation>
     {
-        private static readonly Plugin InstanceValue = new Plugin();
-
-        private Plugin()
-        {
-        }
-
-        /// <inheritdoc/>
-        public override Version RequiredExiledVersion { get; } = new Version(3, 0, 0);
+        private EventHandlers eventHandlers;
 
         /// <summary>
         /// Gets a static instance of the <see cref="Plugin"/> class.
         /// </summary>
-        internal static Plugin Instance { get; } = InstanceValue;
+        public static Plugin Instance { get; private set; }
+
+        /// <inheritdoc/>
+        public override Version RequiredExiledVersion { get; } = new Version(3, 0, 0);
 
         /// <inheritdoc/>
         public override void OnEnabled()
         {
-            Exiled.Events.Handlers.Server.RoundStarted += EventHandlers.OnRoundStarted;
-            Exiled.Events.Handlers.Player.Spawning += EventHandlers.OnSpawning;
-            Exiled.Events.Handlers.Scp079.GainingExperience += EventHandlers.OnGainingExperience;
+            Instance = this;
+            RegisterAbilities();
+            eventHandlers = new EventHandlers();
+            Exiled.Events.Handlers.Player.Spawning += eventHandlers.OnSpawning;
+            Exiled.Events.Handlers.Scp079.GainingExperience += eventHandlers.OnGainingExperience;
             base.OnEnabled();
         }
 
         /// <inheritdoc/>
         public override void OnDisabled()
         {
-            Exiled.Events.Handlers.Server.RoundStarted -= EventHandlers.OnRoundStarted;
-            Exiled.Events.Handlers.Player.Spawning -= EventHandlers.OnSpawning;
-            Exiled.Events.Handlers.Scp079.GainingExperience -= EventHandlers.OnGainingExperience;
+            UnregisterAbilities();
+            Exiled.Events.Handlers.Player.Spawning -= eventHandlers.OnSpawning;
+            Exiled.Events.Handlers.Scp079.GainingExperience -= eventHandlers.OnGainingExperience;
+            eventHandlers = null;
+            Instance = null;
             base.OnDisabled();
+        }
+
+        private void RegisterAbilities()
+        {
+            Config.A1.TryRegister();
+            Config.A2.TryRegister();
+            Config.A3.TryRegister();
+            Config.A4.TryRegister();
+        }
+
+        private void UnregisterAbilities()
+        {
+            Config.A1.TryUnregister();
+            Config.A2.TryUnregister();
+            Config.A3.TryUnregister();
+            Config.A4.TryUnregister();
         }
     }
 }

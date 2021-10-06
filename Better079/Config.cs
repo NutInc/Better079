@@ -9,6 +9,7 @@ namespace Better079
 {
     using System.Collections.Generic;
     using System.ComponentModel;
+    using Better079.Abilities;
     using Better079.Configs;
     using Exiled.API.Interfaces;
 
@@ -29,33 +30,23 @@ namespace Better079
         };
 
         /// <summary>
-        /// Gets or sets the non-ability specific translations.
+        /// Gets or sets the configs of ability one.
         /// </summary>
-        [Description("The non-ability specific translations.")]
-        public MainTranslations MainTranslations { get; set; } = new MainTranslations();
+        public A1 A1 { get; set; } = new A1();
 
         /// <summary>
-        /// Gets or sets the configs for ability one.
+        /// Gets or sets the configs of ability two.
         /// </summary>
-        [Description("The configs for ability one (SCP Teleportation).")]
-        public A1Configs A1Configs { get; set; } = new A1Configs();
+        public A2 A2 { get; set; } = new A2();
 
         /// <summary>
-        /// Gets or sets the configs for ability two.
+        /// Gets or sets the configs of ability three.
         /// </summary>
-        [Description("The configs for ability two (Gassing of rooms).")]
-        public A2Configs A2Configs { get; set; } = new A2Configs();
+        public A3 A3 { get; set; } = new A3();
 
         /// <summary>
-        /// Gets or sets the configs for ability three.
+        /// Gets or sets the configs of ability four.
         /// </summary>
-        [Description("The configs for ability three (Blackout).")]
-        public A3Configs A3Configs { get; set; } = new A3Configs();
-
-        /// <summary>
-        /// Gets or sets the configs for ability four.
-        /// </summary>
-        [Description("The configs for ability four (Flashing).")]
-        public A4Configs A4Configs { get; set; } = new A4Configs();
+        public A4 A4 { get; set; } = new A4();
     }
 }

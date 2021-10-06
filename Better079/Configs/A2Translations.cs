@@ -15,12 +15,6 @@ namespace Better079.Configs
     public class A2Translations
     {
         /// <summary>
-        /// Gets or sets the help information for the ability.
-        /// </summary>
-        [Description("The help information for the ability.")]
-        public string Help { get; set; } = "Deploys a memetic kill agent into a room to damage users.";
-
-        /// <summary>
         /// Gets or sets the message to send when the ability is executed.
         /// </summary>
         [Description("The message to send when the ability is executed.")]
@@ -43,11 +37,5 @@ namespace Better079.Configs
         /// </summary>
         [Description("The message to be sent to players when the gas is activated.")]
         public string Active { get; set; } = "<color=#ff0000>GAS ACTIVATED.</color>";
-
-        /// <summary>
-        /// Gets or sets the message to be sent when the ability is on cooldown.
-        /// </summary>
-        [Description("The message to be sent when the ability is on cooldown.")]
-        public string OnCooldown { get; set; } = "You must wait $seconds seconds to use this command.";
     }
 }
