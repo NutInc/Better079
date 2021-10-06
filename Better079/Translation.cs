@@ -22,6 +22,7 @@ namespace Better079
         /// <summary>
         /// Gets or sets the translation for when SCP-079 is on cooldown for the ability.
         /// </summary>
+        [Description("The translation for when SCP-079 is on cooldown for the ability.")]
         public string OnCooldown { get; set; } = "You must wait {duration} seconds until you can use this command.";
 
         /// <summary>

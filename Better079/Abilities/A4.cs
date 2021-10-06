@@ -27,10 +27,10 @@ namespace Better079.Abilities
         public override int Cooldown { get; set; } = 60;
 
         /// <inheritdoc />
-        public override int RequiredEnergy { get; set; } = 1;
+        public override int RequiredEnergy { get; set; } = 40;
 
         /// <inheritdoc />
-        public override int RequiredLevel { get; set; } = 40;
+        public override int RequiredLevel { get; set; } = 1;
 
         /// <summary>
         /// Gets or sets the translations for ability four.

@@ -101,7 +101,7 @@ namespace Better079.API
                 return false;
             }
 
-            if (sender.Level < RequiredLevel)
+            if (sender.Level + 1 < RequiredLevel)
             {
                 response = Plugin.Instance.Translation.TierRequired.Replace("{tier}", RequiredLevel.ToString());
                 return false;
@@ -109,7 +109,7 @@ namespace Better079.API
 
             if (IsOnCooldown(sender, out TimeSpan remainingTime))
             {
-                response = Plugin.Instance.Translation.OnCooldown.Replace("{duration}", remainingTime.ToString("ss"));
+                response = Plugin.Instance.Translation.OnCooldown.Replace("{duration}", Math.Abs((int)remainingTime.TotalSeconds).ToString());
                 return false;
             }
 
