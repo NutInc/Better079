@@ -28,10 +28,13 @@ namespace Better079.Abilities
         public override int Cooldown { get; set; } = 0;
 
         /// <inheritdoc />
-        public override int RequiredEnergy { get; set; } = 20;
+        public override int RequiredEnergy { get; set; } = 10;
 
         /// <inheritdoc />
         public override int RequiredLevel { get; set; } = 1;
+
+        /// <inheritdoc/>
+        public override int Experience { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the maximum acceptable distance that a camera and an scp can be.

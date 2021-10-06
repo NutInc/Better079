@@ -24,13 +24,16 @@ namespace Better079.Abilities
         public override string Description { get; set; } = "Flashes nearby players";
 
         /// <inheritdoc />
-        public override int Cooldown { get; set; } = 60;
+        public override int Cooldown { get; set; } = 30;
 
         /// <inheritdoc />
-        public override int RequiredEnergy { get; set; } = 40;
+        public override int RequiredEnergy { get; set; } = 100;
 
         /// <inheritdoc />
-        public override int RequiredLevel { get; set; } = 1;
+        public override int RequiredLevel { get; set; } = 3;
+
+        /// <inheritdoc />
+        public override int Experience { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the translations for ability four.

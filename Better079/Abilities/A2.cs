@@ -30,10 +30,13 @@ namespace Better079.Abilities
         public override int Cooldown { get; set; } = 60;
 
         /// <inheritdoc />
-        public override int RequiredEnergy { get; set; } = 75;
+        public override int RequiredEnergy { get; set; } = 150;
 
         /// <inheritdoc />
-        public override int RequiredLevel { get; set; } = 2;
+        public override int RequiredLevel { get; set; } = 3;
+
+        /// <inheritdoc />
+        public override int Experience { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the rooms where this ability cannot be used.
@@ -70,7 +73,7 @@ namespace Better079.Abilities
         /// Gets or sets the amount of damage to be dealt every half of a second.
         /// </summary>
         [Description("The amount of damage to be dealt every half seconds.")]
-        public float DamagePerTick { get; set; } = 10f;
+        public float DamagePerTick { get; set; } = 15f;
 
         /// <summary>
         /// Gets or sets the translations for ability two.

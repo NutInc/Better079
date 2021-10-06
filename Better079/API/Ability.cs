@@ -37,7 +37,7 @@ namespace Better079.API
         /// <summary>
         /// Gets or sets the duration, in seconds, of the ability's cooldown.
         /// </summary>
-        public abstract int Cooldown { get; set; }
+        public virtual int Cooldown { get; set; }
 
         /// <summary>
         /// Gets or sets the energy required to execute the ability.
@@ -48,6 +48,11 @@ namespace Better079.API
         /// Gets or sets the level required to execute the ability.
         /// </summary>
         public abstract int RequiredLevel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the amount of experience to add on use of the ability.
+        /// </summary>
+        public abstract int Experience { get; set; }
 
         /// <summary>
         /// Gets an <see cref="Ability"/> by its name.
@@ -124,6 +129,7 @@ namespace Better079.API
 
             SetCooldown(sender);
             sender.Energy -= RequiredEnergy;
+            sender.Experience += Experience;
             return true;
         }
 

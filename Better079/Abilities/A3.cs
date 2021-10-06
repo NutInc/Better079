@@ -29,7 +29,10 @@ namespace Better079.Abilities
         public override int RequiredEnergy { get; set; } = 100;
 
         /// <inheritdoc />
-        public override int RequiredLevel { get; set; } = 1;
+        public override int RequiredLevel { get; set; } = 3;
+
+        /// <inheritdoc />
+        public override int Experience { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets how long the lights should be disabled.
