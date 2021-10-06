@@ -22,8 +22,20 @@ namespace Better079
         /// </summary>
         public static Plugin Instance { get; private set; }
 
+        /// <inheritdoc />
+        public override string Author { get; } = "Build";
+
+        /// <inheritdoc />
+        public override string Name { get; } = "Better079";
+
+        /// <inheritdoc />
+        public override string Prefix { get; } = "Better079";
+
         /// <inheritdoc/>
         public override Version RequiredExiledVersion { get; } = new Version(3, 0, 0);
+
+        /// <inheritdoc />
+        public override Version Version { get; } = new Version(2, 0, 0);
 
         /// <inheritdoc/>
         public override void OnEnabled()
