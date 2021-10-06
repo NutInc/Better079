@@ -11,8 +11,10 @@ namespace Better079.Abilities
     using System.ComponentModel;
     using Better079.API;
     using Better079.Configs;
+    using CustomPlayerEffects;
     using Exiled.API.Enums;
     using Exiled.API.Features;
+    using Interactables.Interobjects.DoorUtils;
     using MEC;
 
     /// <summary>
@@ -24,7 +26,7 @@ namespace Better079.Abilities
         public override string Name { get; set; } = nameof(A2);
 
         /// <inheritdoc />
-        public override string Description { get; set; } = "Deploys a memetic kill agent into a room to damage users.";
+        public override string Description { get; set; } = "Deploys gas into a room to damage users.";
 
         /// <inheritdoc />
         public override int Cooldown { get; set; } = 60;
@@ -73,7 +75,7 @@ namespace Better079.Abilities
         /// Gets or sets the amount of damage to be dealt every half of a second.
         /// </summary>
         [Description("The amount of damage to be dealt every half seconds.")]
-        public float DamagePerTick { get; set; } = 15f;
+        public float DamagePerTick { get; set; } = 10f;
 
         /// <summary>
         /// Gets or sets the translations for ability two.
@@ -100,12 +102,12 @@ namespace Better079.Abilities
             foreach (Door door in room.Doors)
             {
                 door.IsOpen = true;
-                door.Base.NetworkActiveLocks = 1;
+                door.Base.ServerChangeLock(DoorLockReason.Lockdown079, true);
             }
 
             for (int i = Timer; i > 0f; i--)
             {
-                foreach (var player in room.Players)
+                foreach (Player player in room.Players)
                 {
                     if (!player.IsScp)
                     {
@@ -119,7 +121,6 @@ namespace Better079.Abilities
             foreach (Door door in room.Doors)
             {
                 door.IsOpen = false;
-                door.Base.NetworkActiveLocks = 1;
             }
 
             foreach (Player player in room.Players)
@@ -127,19 +128,25 @@ namespace Better079.Abilities
                 if (player.Team != Team.SCP && player.CurrentRoom != null && player.CurrentRoom.Transform == room.Transform)
                 {
                     player.ShowHint(Translations.Active, 5f);
+                    player.EnableEffect<Amnesia>();
+                    player.EnableEffect<Concussed>();
                 }
             }
 
-            for (int i = 0; i < GasTimer * 2; i++)
+            List<Player> toEffect = new List<Player>(room.Players);
+            for (int i = 0; i < GasTimer; i++)
             {
                 foreach (Player player in room.Players)
                 {
-                    if (!player.IsScp)
+                    if (!player.IsScp && toEffect.Contains(player))
                     {
-                        player.Hurt(DamagePerTick, DamageTypes.Decont);
+                        player.Hurt(DamagePerTick, DamageTypes.Decont, scp079.ReferenceHub.LoggedNameFromRefHub(), scp079.Id);
                         if (!player.IsAlive)
                         {
                             scp079.Experience += Exp;
+                            player.DisableEffect<Amnesia>();
+                            player.DisableEffect<Concussed>();
+                            toEffect.Remove(player);
                         }
                     }
                 }
@@ -149,7 +156,13 @@ namespace Better079.Abilities
 
             foreach (Door door in room.Doors)
             {
-                door.Base.NetworkActiveLocks = 0;
+                door.Base.ServerChangeLock(DoorLockReason.Lockdown079, false);
+            }
+
+            foreach (Player player in room.Players)
+            {
+                player.DisableEffect<Amnesia>();
+                player.DisableEffect<Concussed>();
             }
         }
     }

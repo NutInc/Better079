@@ -18,7 +18,7 @@ namespace Better079.Configs
         /// Gets or sets the message to send when the ability is executed.
         /// </summary>
         [Description("The message to send when the ability is executed.")]
-        public string Run { get; set; } = "Deploying memetic kill agent.";
+        public string Run { get; set; } = "Deploying gas.";
 
         /// <summary>
         /// Gets or sets the message to send when the ability fails.
