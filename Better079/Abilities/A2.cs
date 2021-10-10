@@ -9,6 +9,7 @@ namespace Better079.Abilities
 {
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Linq;
     using Better079.API;
     using Better079.Configs;
     using CustomPlayerEffects;
@@ -16,6 +17,7 @@ namespace Better079.Abilities
     using Exiled.API.Features;
     using Interactables.Interobjects.DoorUtils;
     using MEC;
+    using UnityEngine;
 
     /// <summary>
     /// Ability two. Gasses and locks down Scp079's current room.
@@ -74,7 +76,7 @@ namespace Better079.Abilities
         /// <summary>
         /// Gets or sets the amount of damage to be dealt every half of a second.
         /// </summary>
-        [Description("The amount of damage to be dealt every half seconds.")]
+        [Description("The amount of damage to be dealt every half of a second.")]
         public float DamagePerTick { get; set; } = 10f;
 
         /// <summary>
@@ -99,7 +101,8 @@ namespace Better079.Abilities
 
         private IEnumerator<float> GasRoom(Room room, Player scp079)
         {
-            foreach (Door door in room.Doors)
+            List<Door> doors = Map.Doors.Where(x => Vector3.Distance(room.Position, x.Position) < 11f).ToList();
+            foreach (Door door in doors)
             {
                 door.IsOpen = true;
                 door.Base.ServerChangeLock(DoorLockReason.Lockdown079, true);
@@ -118,7 +121,7 @@ namespace Better079.Abilities
                 yield return Timing.WaitForSeconds(1f);
             }
 
-            foreach (Door door in room.Doors)
+            foreach (Door door in doors)
             {
                 door.IsOpen = false;
             }
@@ -154,7 +157,7 @@ namespace Better079.Abilities
                 yield return Timing.WaitForSeconds(0.5f);
             }
 
-            foreach (Door door in room.Doors)
+            foreach (Door door in doors)
             {
                 door.Base.ServerChangeLock(DoorLockReason.Lockdown079, false);
             }

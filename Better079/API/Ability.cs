@@ -127,6 +127,9 @@ namespace Better079.API
             if (!RunAbility(sender, out response))
                 return false;
 
+            if (sender.IsBypassModeEnabled)
+                return true;
+
             SetCooldown(sender);
             sender.Energy -= RequiredEnergy;
             sender.Experience += Experience;
