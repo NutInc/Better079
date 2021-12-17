@@ -37,5 +37,11 @@ namespace Better079.Configs
         /// </summary>
         [Description("The message to be sent to players when the gas is activated.")]
         public string Active { get; set; } = "<color=#ff0000>GAS ACTIVATED.</color>";
+
+        /// <summary>
+        /// Gets or sets the damage reason to be applied when a player is hurt by the ability.
+        /// </summary>
+        [Description("The damage reason to be applied when a player is hurt by the ability.")]
+        public string DamageReason { get; set; } = "Gassed by Scp079";
     }
 }

@@ -17,6 +17,7 @@ namespace Better079.Abilities
     using Exiled.API.Features;
     using Interactables.Interobjects.DoorUtils;
     using MEC;
+    using PlayerStatsSystem;
     using UnityEngine;
 
     /// <summary>
@@ -143,7 +144,7 @@ namespace Better079.Abilities
                 {
                     if (!player.IsScp && toEffect.Contains(player))
                     {
-                        player.Hurt(DamagePerTick, DamageTypes.Decont, scp079.ReferenceHub.LoggedNameFromRefHub(), scp079.Id);
+                        player.Hurt(new CustomReasonDamageHandler(Translations.DamageReason, DamagePerTick));
                         if (!player.IsAlive)
                         {
                             scp079.Experience += Exp;
