@@ -11,13 +11,14 @@ namespace Better079.API
     using System.Collections.Generic;
     using System.Linq;
     using Exiled.API.Features;
+    using UnityEngine;
 
     /// <summary>
     /// The ability base class.
     /// </summary>
-    public abstract class Ability
+    public abstract class Ability : IEquatable<Ability>
     {
-        private readonly Dictionary<Player, DateTimeOffset> cooldowns = new Dictionary<Player, DateTimeOffset>();
+        private readonly Dictionary<Player, float> cooldowns = new Dictionary<Player, float>();
 
         /// <summary>
         /// Gets a <see cref="List{T}"/> of all registered abilities.
@@ -37,7 +38,7 @@ namespace Better079.API
         /// <summary>
         /// Gets or sets the duration, in seconds, of the ability's cooldown.
         /// </summary>
-        public virtual int Cooldown { get; set; }
+        public abstract int Cooldown { get; set; }
 
         /// <summary>
         /// Gets or sets the energy required to execute the ability.
@@ -67,9 +68,15 @@ namespace Better079.API
         /// <returns>A value indicating whether the <see cref="Ability"/> was registered or not.</returns>
         public bool TryRegister()
         {
+            if (Registered.Contains(this))
+            {
+                Log.Warn($"Couldn't register the ability '{Name}' as it already exists.");
+                return false;
+            }
+
             if (Registered.Any(ability => string.Equals(ability.Name, Name, StringComparison.OrdinalIgnoreCase)))
             {
-                Log.Warn($"Attempted to add an ability with a duplicate name of {Name}");
+                Log.Warn($"Attempted to add an ability with a duplicate name of {Name}.");
                 return false;
             }
 
@@ -112,9 +119,9 @@ namespace Better079.API
                 return false;
             }
 
-            if (IsOnCooldown(sender, out TimeSpan remainingTime) && !sender.IsBypassModeEnabled)
+            if (IsOnCooldown(sender, out float remainingTime) && !sender.IsBypassModeEnabled)
             {
-                response = Plugin.Instance.Translation.OnCooldown.Replace("{duration}", Math.Abs((int)remainingTime.TotalSeconds).ToString());
+                response = Plugin.Instance.Translation.OnCooldown.Replace("{duration}", ((int)remainingTime).ToString());
                 return false;
             }
 
@@ -136,6 +143,24 @@ namespace Better079.API
             return true;
         }
 
+        /// <inheritdoc />
+        public bool Equals(Ability other)
+        {
+            if (other == null)
+                return false;
+
+            if (this == other)
+                return true;
+
+            return Name == other.Name && Description == other.Description && Cooldown == other.Cooldown && RequiredEnergy == other.RequiredEnergy && RequiredLevel == other.RequiredLevel && Experience == other.Experience;
+        }
+
+        /// <inheritdoc />
+        public override int GetHashCode()
+        {
+            return System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(this);
+        }
+
         /// <summary>
         /// Runs the main method of the ability.
         /// </summary>
@@ -150,21 +175,21 @@ namespace Better079.API
         /// <param name="sender">The player to check the time of.</param>
         /// <param name="remainingTime">The remaining time left before the cooldown expires.</param>
         /// <returns>A value indicating whether the player is on cooldown.</returns>
-        protected virtual bool IsOnCooldown(Player sender, out TimeSpan remainingTime)
+        protected virtual bool IsOnCooldown(Player sender, out float remainingTime)
         {
-            if (cooldowns.TryGetValue(sender, out DateTimeOffset cooldown))
+            if (cooldowns.TryGetValue(sender, out float cooldown))
             {
-                remainingTime = DateTimeOffset.UtcNow - cooldown;
-                return DateTimeOffset.UtcNow < cooldown;
+                remainingTime = cooldown - Time.time;
+                return remainingTime > 0f;
             }
 
-            remainingTime = TimeSpan.Zero;
+            remainingTime = 0f;
             return false;
         }
 
         private void SetCooldown(Player sender)
         {
-            cooldowns[sender] = DateTimeOffset.UtcNow + TimeSpan.FromSeconds(Cooldown);
+            cooldowns[sender] = Time.time + Cooldown;
         }
     }
 }

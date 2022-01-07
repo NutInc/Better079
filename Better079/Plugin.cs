@@ -32,7 +32,7 @@ namespace Better079
         public override string Prefix { get; } = "Better079";
 
         /// <inheritdoc/>
-        public override Version RequiredExiledVersion { get; } = new Version(3, 0, 0);
+        public override Version RequiredExiledVersion { get; } = new Version(4, 2, 2);
 
         /// <inheritdoc />
         public override Version Version { get; } = new Version(2, 0, 0);
@@ -41,38 +41,52 @@ namespace Better079
         public override void OnEnabled()
         {
             Instance = this;
+
             RegisterAbilities();
-            eventHandlers = new EventHandlers();
+
+            eventHandlers = new EventHandlers(this);
             Exiled.Events.Handlers.Player.Spawning += eventHandlers.OnSpawning;
             Exiled.Events.Handlers.Scp079.GainingExperience += eventHandlers.OnGainingExperience;
+            Exiled.Events.Handlers.Server.ReloadedConfigs += OnReloadedConfigs;
+
             base.OnEnabled();
         }
 
         /// <inheritdoc/>
         public override void OnDisabled()
         {
-            UnregisterAbilities();
             Exiled.Events.Handlers.Player.Spawning -= eventHandlers.OnSpawning;
             Exiled.Events.Handlers.Scp079.GainingExperience -= eventHandlers.OnGainingExperience;
+            Exiled.Events.Handlers.Server.ReloadedConfigs -= OnReloadedConfigs;
             eventHandlers = null;
+
+            UnregisterAbilities();
+
             Instance = null;
+
             base.OnDisabled();
+        }
+
+        private void OnReloadedConfigs()
+        {
+            UnregisterAbilities();
+            RegisterAbilities();
         }
 
         private void RegisterAbilities()
         {
-            Config.A1.TryRegister();
-            Config.A2.TryRegister();
-            Config.A3.TryRegister();
-            Config.A4.TryRegister();
+            Config.A1?.TryRegister();
+            Config.A2?.TryRegister();
+            Config.A3?.TryRegister();
+            Config.A4?.TryRegister();
         }
 
         private void UnregisterAbilities()
         {
-            Config.A1.TryUnregister();
-            Config.A2.TryUnregister();
-            Config.A3.TryUnregister();
-            Config.A4.TryUnregister();
+            Config.A1?.TryUnregister();
+            Config.A2?.TryUnregister();
+            Config.A3?.TryUnregister();
+            Config.A4?.TryUnregister();
         }
     }
 }

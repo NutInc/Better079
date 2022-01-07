@@ -37,6 +37,13 @@ namespace Better079.Commands
                 return false;
             }
 
+            Player player = Player.Get(sender);
+            if (player == null)
+            {
+                response = "This command must be executed on the game level.";
+                return false;
+            }
+
             API.Ability ability = API.Ability.Get(arguments.At(0));
             if (ability == null)
             {
@@ -44,7 +51,7 @@ namespace Better079.Commands
                 return false;
             }
 
-            return ability.Execute(Player.Get(sender), out response);
+            return ability.Execute(player, out response);
         }
 
         private string GetHelpMessage()

@@ -14,19 +14,27 @@ namespace Better079
     /// </summary>
     public class EventHandlers
     {
+        private readonly Plugin plugin;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventHandlers"/> class.
+        /// </summary>
+        /// <param name="plugin">An instance of the <see cref="Plugin"/> class.</param>
+        public EventHandlers(Plugin plugin) => this.plugin = plugin;
+
         /// <inheritdoc cref="Exiled.Events.Handlers.Player.OnSpawning(SpawningEventArgs)"/>
         public void OnSpawning(SpawningEventArgs ev)
         {
             if (ev.Player.Role == RoleType.Scp079)
             {
-                ev.Player.ShowHint(Plugin.Instance.Translation.SpawnMsg, 10f);
+                ev.Player.ShowHint(plugin.Translation.SpawnMsg, 10f);
             }
         }
 
         /// <inheritdoc cref="Exiled.Events.Handlers.Scp079.OnGainingExperience(GainingExperienceEventArgs)"/>
         public void OnGainingExperience(GainingExperienceEventArgs ev)
         {
-            if (Plugin.Instance.Config.ExperienceGain.TryGetValue(ev.GainType, out float experience))
+            if (plugin.Config.ExperienceGain.TryGetValue(ev.GainType, out float experience))
             {
                 ev.Amount += experience;
             }
