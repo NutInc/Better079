@@ -20,13 +20,13 @@ namespace Better079.Commands
     public class Better079 : ICommand
     {
         /// <inheritdoc />
-        public string Command { get; } = "079";
+        public string Command => "079";
 
         /// <inheritdoc />
         public string[] Aliases { get; } = { "b079" };
 
         /// <inheritdoc />
-        public string Description { get; } = "The command to run all abilities.";
+        public string Description => "The command to run all abilities.";
 
         /// <inheritdoc />
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

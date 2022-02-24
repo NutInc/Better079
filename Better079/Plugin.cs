@@ -23,13 +23,13 @@ namespace Better079
         public static Plugin Instance { get; private set; }
 
         /// <inheritdoc />
-        public override string Author { get; } = "Build";
+        public override string Author => "Build";
 
         /// <inheritdoc />
-        public override string Name { get; } = "Better079";
+        public override string Name => "Better079";
 
         /// <inheritdoc />
-        public override string Prefix { get; } = "Better079";
+        public override string Prefix => "Better079";
 
         /// <inheritdoc/>
         public override Version RequiredExiledVersion { get; } = new Version(5, 1, 0);
