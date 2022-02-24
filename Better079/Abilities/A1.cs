@@ -11,7 +11,9 @@ namespace Better079.Abilities
     using Better079.API;
     using Better079.Configs;
     using Exiled.API.Features;
+    using Exiled.API.Features.Roles;
     using UnityEngine;
+    using Camera = Exiled.API.Features.Camera;
 
     /// <summary>
     /// Ability one. Changes Scp079's camera to be near a teammate.
@@ -49,31 +51,31 @@ namespace Better079.Abilities
         /// <inheritdoc />
         protected override bool RunAbility(Player scp079, out string response)
         {
-            List<Camera079> cameras = GetScpCameras();
+            List<Camera> cameras = GetScpCameras();
             if (cameras.Count == 0)
             {
                 response = Translations.Fail;
                 return false;
             }
 
-            scp079.Camera = cameras[Random.Range(0, cameras.Count)];
+            scp079.Role.As<Scp079Role>().Camera = cameras[Random.Range(0, cameras.Count)];
             response = Translations.Run;
             return true;
         }
 
-        private List<Camera079> GetScpCameras()
+        private List<Camera> GetScpCameras()
         {
-            List<Camera079> cams = new List<Camera079>();
+            List<Camera> cams = new List<Camera>();
             foreach (Player player in Player.List)
             {
-                if (player.IsScp && !player.SessionVariables.ContainsKey("IsNPC") && player.Role != RoleType.Scp079)
+                if (!player.IsScp || string.IsNullOrEmpty(player.UserId) || player.Role == RoleType.Scp079)
+                    continue;
+
+                foreach (Camera cam in Camera.List)
                 {
-                    foreach (Camera079 cam in Map.Cameras)
+                    if ((cam.Position - player.Position).sqrMagnitude <= MaximumDistance * MaximumDistance)
                     {
-                        if (Vector3.Distance(cam.transform.position, player.Position) <= MaximumDistance)
-                        {
-                            cams.Add(cam);
-                        }
+                        cams.Add(cam);
                     }
                 }
             }

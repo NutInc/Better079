@@ -11,6 +11,8 @@ namespace Better079.Abilities
     using Better079.Configs;
     using Exiled.API.Features;
     using Exiled.API.Features.Items;
+    using Exiled.API.Features.Roles;
+    using InventorySystem.Items.ThrowableProjectiles;
 
     /// <summary>
     /// Ability four. Spawns a flashbang on Scp079's active camera.
@@ -43,10 +45,11 @@ namespace Better079.Abilities
         /// <inheritdoc />
         protected override bool RunAbility(Player scp079, out string response)
         {
-            new FlashGrenade(ItemType.GrenadeFlash, scp079)
+            ThrowableItem throwableItem = (ThrowableItem)scp079.Inventory.CreateItemInstance(ItemType.GrenadeHE, true);
+            new FlashGrenade(throwableItem)
             {
                 FuseTime = 0.5f,
-            }.SpawnActive(scp079.Camera.transform.position, scp079);
+            }.SpawnActive(scp079.Role.As<Scp079Role>().Camera.Position, scp079);
 
             response = Translations.Run;
             return true;

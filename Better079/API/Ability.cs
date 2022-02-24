@@ -11,6 +11,7 @@ namespace Better079.API
     using System.Collections.Generic;
     using System.Linq;
     using Exiled.API.Features;
+    using Exiled.API.Features.Roles;
     using UnityEngine;
 
     /// <summary>
@@ -107,13 +108,13 @@ namespace Better079.API
         /// <returns>A value indicating whether the ability was executed.</returns>
         public virtual bool Execute(Player sender, out string response)
         {
-            if (sender.Role != RoleType.Scp079)
+            if (!sender.Role.Is(out Scp079Role scp079))
             {
                 response = "You are not an Scp079!";
                 return false;
             }
 
-            if (sender.Level + 1 < RequiredLevel && !sender.IsBypassModeEnabled)
+            if (scp079.Level + 1 < RequiredLevel && !sender.IsBypassModeEnabled)
             {
                 response = Plugin.Instance.Translation.TierRequired.Replace("{tier}", RequiredLevel.ToString());
                 return false;
@@ -125,7 +126,7 @@ namespace Better079.API
                 return false;
             }
 
-            if (sender.Energy < RequiredEnergy && !sender.IsBypassModeEnabled)
+            if (scp079.Energy < RequiredEnergy && !sender.IsBypassModeEnabled)
             {
                 response = Plugin.Instance.Translation.EnergyRequired.Replace("{energy}", RequiredEnergy.ToString());
                 return false;
@@ -138,8 +139,8 @@ namespace Better079.API
                 return true;
 
             SetCooldown(sender);
-            sender.Energy -= RequiredEnergy;
-            sender.Experience += Experience;
+            scp079.Energy -= RequiredEnergy;
+            scp079.Experience += Experience;
             return true;
         }
 

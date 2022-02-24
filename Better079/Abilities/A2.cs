@@ -15,6 +15,7 @@ namespace Better079.Abilities
     using CustomPlayerEffects;
     using Exiled.API.Enums;
     using Exiled.API.Features;
+    using Exiled.API.Features.Roles;
     using Interactables.Interobjects.DoorUtils;
     using MEC;
     using PlayerStatsSystem;
@@ -102,7 +103,7 @@ namespace Better079.Abilities
 
         private IEnumerator<float> GasRoom(Room room, Player scp079)
         {
-            List<Door> doors = Map.Doors.Where(x => Vector3.Distance(room.Position, x.Position) < 11f).ToList();
+            List<Door> doors = Door.Get(x => (room.Position - x.Position).sqrMagnitude <= 121f).ToList();
             foreach (Door door in doors)
             {
                 door.IsOpen = true;
@@ -129,7 +130,7 @@ namespace Better079.Abilities
 
             foreach (Player player in room.Players)
             {
-                if (player.Team != Team.SCP && player.CurrentRoom != null && player.CurrentRoom.Transform == room.Transform)
+                if (player.Role.Team != Team.SCP && player.CurrentRoom != null && player.CurrentRoom.Transform == room.Transform)
                 {
                     player.ShowHint(Translations.Active, 5f);
                     player.EnableEffect<Amnesia>();
@@ -147,7 +148,7 @@ namespace Better079.Abilities
                         player.Hurt(new CustomReasonDamageHandler(Translations.DamageReason, DamagePerTick));
                         if (!player.IsAlive)
                         {
-                            scp079.Experience += Exp;
+                            scp079.Role.As<Scp079Role>().Experience += Exp;
                             player.DisableEffect<Amnesia>();
                             player.DisableEffect<Concussed>();
                             toEffect.Remove(player);
