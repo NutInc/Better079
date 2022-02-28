@@ -45,11 +45,9 @@ namespace Better079.Abilities
         /// <inheritdoc />
         protected override bool RunAbility(Player scp079, out string response)
         {
-            ThrowableItem throwableItem = (ThrowableItem)scp079.Inventory.CreateItemInstance(ItemType.GrenadeHE, true);
-            new FlashGrenade(throwableItem)
-            {
-                FuseTime = 0.5f,
-            }.SpawnActive(scp079.Role.As<Scp079Role>().Camera.Position, scp079);
+            FlashGrenade grenade = (FlashGrenade)Item.Create(ItemType.GrenadeFlash);
+            grenade.FuseTime = 0.5f;
+            grenade.SpawnActive(scp079.Role.As<Scp079Role>().Camera.Position, scp079);
 
             response = Translations.Run;
             return true;

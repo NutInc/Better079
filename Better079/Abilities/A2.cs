@@ -18,8 +18,8 @@ namespace Better079.Abilities
     using Exiled.API.Features.Roles;
     using Interactables.Interobjects.DoorUtils;
     using MEC;
+    using NorthwoodLib.Pools;
     using PlayerStatsSystem;
-    using UnityEngine;
 
     /// <summary>
     /// Ability two. Gasses and locks down Scp079's current room.
@@ -103,7 +103,7 @@ namespace Better079.Abilities
 
         private IEnumerator<float> GasRoom(Room room, Player scp079)
         {
-            List<Door> doors = Door.Get(x => (room.Position - x.Position).sqrMagnitude <= 121f).ToList();
+            List<Door> doors = ListPool<Door>.Shared.Rent(Door.Get(x => (room.Position - x.Position).sqrMagnitude <= 121f));
             foreach (Door door in doors)
             {
                 door.IsOpen = true;
@@ -169,6 +169,8 @@ namespace Better079.Abilities
                 player.DisableEffect<Amnesia>();
                 player.DisableEffect<Concussed>();
             }
+
+            ListPool<Door>.Shared.Return(doors);
         }
     }
 }
