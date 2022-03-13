@@ -36,5 +36,17 @@ namespace Better079
         /// </summary>
         [Description("The translation for when SCP-079 does not have enough power for the ability.")]
         public string EnergyRequired { get; set; } = "{energy} energy is required.";
+
+        /// <summary>
+        /// Gets or sets the translation for when SCP-079 fails to specify an ability.
+        /// </summary>
+        [Description("The translation for when SCP-079 fails to specify an ability.")]
+        public string SpecifyAbility { get; set; } = "Please specify an ability. Available:";
+
+        /// <summary>
+        /// Gets or sets the translation for when SCP-079 specifies an ability that is not registered.
+        /// </summary>
+        [Description("The translation for when SCP-079 specifies an ability that is not registered.")]
+        public string AbilityNotFound { get; set; } = "Ability not found.";
     }
 }

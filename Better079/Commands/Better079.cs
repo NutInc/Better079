@@ -33,7 +33,7 @@ namespace Better079.Commands
         {
             if (arguments.Count == 0)
             {
-                response = $"Please specify an ability. Available:\n{GetHelpMessage()}";
+                response = $"{Plugin.Instance.Translation.SpecifyAbility}\n{GetHelpMessage()}";
                 return false;
             }
 
@@ -47,7 +47,7 @@ namespace Better079.Commands
             API.Ability ability = API.Ability.Get(arguments.At(0));
             if (ability == null)
             {
-                response = "Ability not found.";
+                response = Plugin.Instance.Translation.AbilityNotFound;
                 return false;
             }
 
