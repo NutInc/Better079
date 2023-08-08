@@ -5,6 +5,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Exiled.Events.EventArgs.Player;
+using Exiled.Events.EventArgs.Scp079;
+using PlayerRoles;
+
 namespace Better079
 {
     using Exiled.Events.EventArgs;
@@ -25,19 +29,11 @@ namespace Better079
         /// <inheritdoc cref="Exiled.Events.Handlers.Player.OnSpawning(SpawningEventArgs)"/>
         public void OnSpawning(SpawningEventArgs ev)
         {
-            if (ev.Player.Role == RoleType.Scp079)
+            if (ev.Player.Role == RoleTypeId.Scp079)
             {
                 ev.Player.ShowHint(plugin.Translation.SpawnMsg, 10f);
             }
         }
-
-        /// <inheritdoc cref="Exiled.Events.Handlers.Scp079.OnGainingExperience(GainingExperienceEventArgs)"/>
-        public void OnGainingExperience(GainingExperienceEventArgs ev)
-        {
-            if (plugin.Config.ExperienceGain.TryGetValue(ev.GainType, out float experience))
-            {
-                ev.Amount += experience;
-            }
-        }
+        
     }
 }

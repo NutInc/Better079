@@ -5,6 +5,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using PlayerRoles;
+
 namespace Better079.Abilities
 {
     using System.Collections.Generic;
@@ -61,7 +63,7 @@ namespace Better079.Abilities
         /// Gets or sets the amount of experience granted per gas kill.
         /// </summary>
         [Description("The amount of experience granted per gas kill.")]
-        public float Exp { get; set; } = 35;
+        public int Exp { get; set; } = 35;
 
         /// <summary>
         /// Gets or sets the amount of time before the room is gassed.
@@ -130,10 +132,10 @@ namespace Better079.Abilities
 
             foreach (Player player in room.Players)
             {
-                if (player.Role.Team != Team.SCP && player.CurrentRoom != null && player.CurrentRoom.Transform == room.Transform)
+                if (player.Role.Team != Team.SCPs && player.CurrentRoom != null && player.CurrentRoom.Transform == room.Transform)
                 {
                     player.ShowHint(Translations.Active, 5f);
-                    player.EnableEffect<Amnesia>();
+                    player.EnableEffect<AmnesiaVision>();
                     player.EnableEffect<Concussed>();
                 }
             }
@@ -149,7 +151,7 @@ namespace Better079.Abilities
                         if (!player.IsAlive)
                         {
                             scp079.Role.As<Scp079Role>().Experience += Exp;
-                            player.DisableEffect<Amnesia>();
+                            player.DisableEffect<AmnesiaVision>();
                             player.DisableEffect<Concussed>();
                             toEffect.Remove(player);
                         }
@@ -166,7 +168,7 @@ namespace Better079.Abilities
 
             foreach (Player player in room.Players)
             {
-                player.DisableEffect<Amnesia>();
+                player.DisableEffect<AmnesiaVision>();
                 player.DisableEffect<Concussed>();
             }
 

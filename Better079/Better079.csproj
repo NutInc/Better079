@@ -2,7 +2,7 @@
 
     <PropertyGroup>
       <AssemblyName>Better079</AssemblyName>
-      <TargetFramework>net472</TargetFramework>
+      <TargetFramework>net48</TargetFramework>
       <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
       <Authors>VirtualBrightPlayz &amp; Build</Authors>
       <Version>2.1.1</Version>
@@ -12,7 +12,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="EXILED" Version="5.0.0-beta.5" />
+      <PackageReference Include="EXILED" Version="7.0.0-rc.3-1" />
       <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
       <PackageReference Include="YamlDotNet" Version="9.1.4" />
     </ItemGroup>

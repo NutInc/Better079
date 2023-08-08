@@ -5,6 +5,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using PlayerRoles;
+
 namespace Better079.Abilities
 {
     using System.Collections.Generic;
@@ -68,7 +70,7 @@ namespace Better079.Abilities
             List<Camera> cams = new List<Camera>();
             foreach (Player player in Player.List)
             {
-                if (!player.IsScp || string.IsNullOrEmpty(player.UserId) || player.Role == RoleType.Scp079)
+                if (!player.IsScp || string.IsNullOrEmpty(player.UserId) || player.Role == RoleTypeId.Scp079)
                     continue;
 
                 foreach (Camera cam in Camera.List)

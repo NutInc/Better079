@@ -19,15 +19,10 @@ namespace Better079
         /// <inheritdoc/>
         public bool IsEnabled { get; set; } = true;
 
+        public bool Debug { get; set; }
+
         /// <summary>
-        /// Gets or sets additional experience for SCP-079 interactions.
-        /// </summary>
-        [Description("SCP-079 XP boost, it does not affect the exp of the memetic agent | Default: KillAssist = 0 DirectKill = 1, HardwareHack = 2, AdminCheat = 3, GeneralInteractions = 4, PocketAssist = 5")]
-        public Dictionary<ExpGainType, float> ExperienceGain { get; set; } = new Dictionary<ExpGainType, float>
-        {
-            [ExpGainType.GeneralInteractions] = 5,
-            [ExpGainType.KillAssist] = 2,
-        };
+        //
 
         /// <summary>
         /// Gets or sets the configs of ability one.

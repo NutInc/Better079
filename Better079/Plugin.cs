@@ -43,7 +43,7 @@ namespace Better079
 
             eventHandlers = new EventHandlers(this);
             Exiled.Events.Handlers.Player.Spawning += eventHandlers.OnSpawning;
-            Exiled.Events.Handlers.Scp079.GainingExperience += eventHandlers.OnGainingExperience;
+            //Exiled.Events.Handlers.Scp079.GainingExperience += eventHandlers.OnGainingExperience;
             Exiled.Events.Handlers.Server.ReloadedConfigs += OnReloadedConfigs;
 
             base.OnEnabled();
@@ -53,7 +53,7 @@ namespace Better079
         public override void OnDisabled()
         {
             Exiled.Events.Handlers.Player.Spawning -= eventHandlers.OnSpawning;
-            Exiled.Events.Handlers.Scp079.GainingExperience -= eventHandlers.OnGainingExperience;
+            //Exiled.Events.Handlers.Scp079.GainingExperience -= eventHandlers.OnGainingExperience;
             Exiled.Events.Handlers.Server.ReloadedConfigs -= OnReloadedConfigs;
             eventHandlers = null;
 
